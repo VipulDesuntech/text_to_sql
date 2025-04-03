@@ -7,13 +7,17 @@ import pandas as pd
 from dotenv import load_dotenv
 load_dotenv()
 
+api_key=os.getenv("API_KEY")
+# model=os.getenv("gemini-1.5-flash")
 class MyVanna(ChromaDB_VectorStore, GoogleGeminiChat):
     def __init__(self, config=None):
+        import google.generativeai as genai
+        genai.configure(api_key=api_key)
         ChromaDB_VectorStore.__init__(self, config=config)
         GoogleGeminiChat.__init__(self, config={'api_key': os.getenv("API_KEY"), 'model': os.getenv("model")})
 
     def setup_database(self, host, dbname, user, password, port=3306):
-        self.connect_to_mysql(host=host, dbname=dbname, user=user, password=password, port=port)
+        self.connect_to_mysql(host=host, dbname=dbname, user=user, password=password, port=3306)
         df_information_schema = self.run_sql("SELECT * FROM INFORMATION_SCHEMA.COLUMNS")
 
         plan = self.get_training_plan_generic(df_information_schema)

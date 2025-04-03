@@ -13,11 +13,11 @@ class QuestionRequest(BaseModel):
 
 # Initialize Vanna
 vn = initialize_vanna(
-    host=os.getenv('host', ''),
-    dbname=os.getenv('dbname', ''),
-    user=os.getenv('user', ''),
-    password=os.getenv('password', ''),
-    port=os.getenv('port', ''),
+    host=os.getenv('host', 'localhost'),
+    dbname=os.getenv('dbname', 'hotel'),
+    user=os.getenv('user', 'root'),
+    password=os.getenv('password', 'vipul0818'),
+    port=3306,
 )
 
 # Create an instance of Analytics
